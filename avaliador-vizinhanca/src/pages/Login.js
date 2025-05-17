@@ -7,8 +7,23 @@ export default function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log('Login:', { email, senha });
-    // Aqui vai a chamada de API ou lógica de autenticação
+
+    // Pega usuários cadastrados
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    // Verifica se existe usuário com email e senha iguais
+    const usuarioValido = usuarios.find(
+      (user) => user.email === email && user.senha === senha
+    );
+
+    if (usuarioValido) {
+      alert('Login realizado com sucesso!');
+      // Aqui você pode redirecionar para a home ou para a página de avaliação
+      // Exemplo usando window.location:
+      window.location.href = '/avaliar'; 
+    } else {
+      alert('Email ou senha incorretos. Tente novamente.');
+    }
   };
 
   return (
