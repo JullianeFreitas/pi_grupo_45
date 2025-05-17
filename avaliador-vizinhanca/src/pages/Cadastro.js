@@ -8,21 +8,26 @@ export default function Cadastro() {
   const handleCadastro = (e) => {
     e.preventDefault();
 
-    // Pega lista de usuários já cadastrados no localStorage ou cria um array vazio
+    // Pega os usuários já cadastrados no localStorage (ou cria um array vazio)
     const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-    // Verifica se já existe um usuário com esse email
-    const usuarioExistente = usuarios.find(u => u.email === email);
-    if (usuarioExistente) {
-      alert('Esse email já está cadastrado!');
+    // Verifica se o email já está cadastrado
+    const emailExiste = usuarios.some((user) => user.email === email);
+
+    if (emailExiste) {
+      alert('Este email já está cadastrado. Por favor, faça login.');
       return;
     }
 
-    // Adiciona o novo usuário na lista
+  
     usuarios.push({ email, senha });
+
+    // Salva novamente no localStorage
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
-    alert('Cadastro realizado com sucesso!');
+    alert('Cadastro realizado com sucesso! Agora faça login.');
+
+  
     setEmail('');
     setSenha('');
   };
