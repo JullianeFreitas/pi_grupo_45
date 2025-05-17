@@ -8,7 +8,13 @@ function Avaliar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ bairro, nota, comentario });
+
+    const novaAvaliacao = { bairro, nota, comentario };
+    const avaliacoesExistentes = JSON.parse(localStorage.getItem('avaliacoes')) || [];
+
+    avaliacoesExistentes.push(novaAvaliacao);
+    localStorage.setItem('avaliacoes', JSON.stringify(avaliacoesExistentes));
+
     alert("Avaliação enviada com sucesso!");
     setBairro('');
     setNota(0);
