@@ -7,8 +7,24 @@ export default function Cadastro() {
 
   const handleCadastro = (e) => {
     e.preventDefault();
-    console.log('Cadastro:', { email, senha });
-    // Aqui vai a chamada de API para criar conta
+
+    // Pega lista de usuários já cadastrados no localStorage ou cria um array vazio
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    // Verifica se já existe um usuário com esse email
+    const usuarioExistente = usuarios.find(u => u.email === email);
+    if (usuarioExistente) {
+      alert('Esse email já está cadastrado!');
+      return;
+    }
+
+    // Adiciona o novo usuário na lista
+    usuarios.push({ email, senha });
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+    alert('Cadastro realizado com sucesso!');
+    setEmail('');
+    setSenha('');
   };
 
   return (
