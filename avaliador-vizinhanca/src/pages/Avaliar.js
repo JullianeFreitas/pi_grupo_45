@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import '../styles/avaliacao.css';
+import '../styles/avaliar.css';
 
-function Avaliar() {
+export default function Avaliar() {
   const [bairro, setBairro] = useState('');
-  const [nota, setNota] = useState(0);
+  const [nota, setNota] = useState('');
   const [comentario, setComentario] = useState('');
 
   const handleSubmit = (e) => {
@@ -15,51 +15,40 @@ function Avaliar() {
     avaliacoesExistentes.push(novaAvaliacao);
     localStorage.setItem('avaliacoes', JSON.stringify(avaliacoesExistentes));
 
-    alert("Avaliação enviada com sucesso!");
+    alert('Avaliação registrada com sucesso!');
     setBairro('');
-    setNota(0);
+    setNota('');
     setComentario('');
   };
 
   return (
-    <div className="avaliacao-container">
-      <form onSubmit={handleSubmit} className="avaliacao-form">
-        <h2>Avalie sua Vizinhança</h2>
-
-        <label htmlFor="bairro">Nome do Bairro</label>
+    <div className="avaliar-container">
+      <h2>Avalie um Bairro</h2>
+      <form className="avaliar-form" onSubmit={handleSubmit}>
         <input
-          id="bairro"
           type="text"
-          placeholder="Ex: Centro"
+          placeholder="Nome do Bairro"
           value={bairro}
           onChange={(e) => setBairro(e.target.value)}
           required
         />
-
-        <label htmlFor="nota">Nota (0 a 5)</label>
         <input
-          id="nota"
           type="number"
-          min="0"
-          max="5"
+          placeholder="Nota (0 a 10)"
           value={nota}
           onChange={(e) => setNota(e.target.value)}
+          min="0"
+          max="10"
           required
         />
-
-        <label htmlFor="comentario">Comentário</label>
         <textarea
-          id="comentario"
-          rows="4"
-          placeholder="Conte como é viver nesse bairro..."
+          placeholder="Comentário"
           value={comentario}
           onChange={(e) => setComentario(e.target.value)}
+          required
         />
-
         <button type="submit">Enviar Avaliação</button>
       </form>
     </div>
   );
 }
-
-export default Avaliar;
